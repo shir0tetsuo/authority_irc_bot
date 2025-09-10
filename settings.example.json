@@ -1,0 +1,10 @@
+{
+    "server": "localhost",
+    "port": 6697,
+    "use_ssl": true,
+    "nick": "authority",
+    "realname": "Authority Bot",
+    "password": "",
+    "logfile": "bot.log",
+    "default_channel": "#journey"
+}
