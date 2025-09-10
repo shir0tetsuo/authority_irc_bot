@@ -1,12 +1,19 @@
 import socket
 import ssl
 import logging
+import threading # for json lock
+from datetime import timedelta, datetime
 import os
 import importlib.util
 import re
 import atexit
 import json
 from typing import Callable, Optional
+
+# TODO : Add Operator login for bot.
+# TODO : Add Banned json loading.
+# TODO : Add Kick command.
+# TODO : Add Ban command.
 
 with open('settings.json', 'r') as f:
     settings = json.load(f)
@@ -19,6 +26,8 @@ PASSWORD = settings["password"]
 LOGFILE  = settings.get("logfile", "bot.log")
 USE_SSL  = settings.get("use_ssl", True)
 CHANNEL  = settings.get('default_channel')
+WEBHOOK  = settings.get('discord_webhook')
+NOTIFYID = settings.get('discord_id_to_notify')
 
 logging.basicConfig(
     filename=LOGFILE,
@@ -84,7 +93,6 @@ class Bot:
         self.realname = realname
         self.password = password
         self.prefix = prefix
-
         self.netadmin_pattern = re.compile(r'@op\.[a-zA-Z0-9.-]+$')
 
         # memory
