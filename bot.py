@@ -145,10 +145,10 @@ class Bot:
         '''Log the raw '''
         logging.info(f'[{channel}] <{user}> ({prefix}) {message}')
 
-        netadmin = bool(self.netadmin_pattern.search(prefix))
-
         if not message.startswith(self.prefix):
             return
+
+        netadmin = bool(self.netadmin_pattern.search(prefix))
         
         parts = message[len(self.prefix):].split()
         if not parts:
